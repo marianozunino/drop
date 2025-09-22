@@ -41,11 +41,11 @@ A temporary file hosting service built with Echo, inspired by [0x0.st](https://0
    ```bash
    # Option 1: Use pre-built image (recommended)
    docker pull ghcr.io/marianozunino/drop:latest
-   docker run -p 3000:3000 -v ./uploads:/uploads -v ./config:/config -v ./data:/data ghcr.io/marianozunino/drop:latest
+   docker run -p 3000:3000 -v ./uploads:/app/uploads -v ./config:/app/config -v ./data:/app/data ghcr.io/marianozunino/drop:latest
    
    # Option 2: Build from source
    docker build -t drop .
-   docker run -p 3000:3000 -v ./uploads:/uploads -v ./config:/config -v ./data:/data drop
+   docker run -p 3000:3000 -v ./uploads:/app/uploads -v ./config:/app/config -v ./data:/app/data drop
    ```
 
 ## Configuration

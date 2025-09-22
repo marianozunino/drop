@@ -12,7 +12,7 @@ max_age_days: 365
 max_size_mib: 1024
 
 # upload_path: Filesystem path where uploaded files are stored
-upload_path: /uploads
+upload_path: /app/uploads
 
 # check_interval_min: How often (in minutes) to check for expired files
 check_interval_min: 1
@@ -24,7 +24,7 @@ expiration_manager_enabled: true
 base_url: "http://localhost:3000/"
 
 # sqlite_path: Path to SQLite database file for metadata
-sqlite_path: "/data/dump.db"
+sqlite_path: "/app/data/dump.db"
 
 # id_length: Length of random IDs generated for files
 id_length: 4

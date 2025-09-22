@@ -37,7 +37,7 @@ COPY --from=builder /app/internal/migration/migrations /app/internal/migration/m
 COPY config/config.docker.yaml /app/config/config.yaml
 COPY scripts/wrapper.sh /app/wrapper.sh
 
-VOLUME ["/uploads", "/config", "/data"]
+VOLUME ["/app/uploads", "/app/config", "/app/data"]
 EXPOSE ${PORT}
 
 CMD ["/app/wrapper.sh"]

@@ -1,0 +1,11 @@
+services:
+  drop:
+    image: ghcr.io/marianozunino/drop:latest
+    restart: unless-stopped
+    container_name: drop
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./data:/app/data
+      - ./config:/app/config

@@ -4,14 +4,14 @@ set -e
 echo "Starting Drop service with migrations..."
 
 # Ensure data directory exists
-mkdir -p /data
+mkdir -p /app/data
 
 # Also ensure uploads directory exists  
-mkdir -p /uploads
+mkdir -p /app/uploads
 
 # Run migrations
 echo "Running database migrations..."
-/app/migrate -action up -db /data/dump.db
+/app/migrate -action up -db /app/data/dump.db
 
 echo "Migrations completed successfully"
 echo "Starting Drop service..."
