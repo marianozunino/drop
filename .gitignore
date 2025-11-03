@@ -1,5 +1,15 @@
 .task
 uploads
 badger
-bin
-data/dump.db
+bin/
+
+# Binaries
+drop
+migrate
+client
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+data/

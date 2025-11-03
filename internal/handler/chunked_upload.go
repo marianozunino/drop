@@ -336,7 +336,7 @@ func (h *Handler) finalizeChunkedUpload(upload *ChunkedUpload, c echo.Context) (
 	metadata := model.FileMetadata{
 		ResourcePath: finalPath,
 		Token:        managementToken,
-		OriginalName: upload.Filename,
+		OriginalName: filenameSanitizer.ReplaceAllString(upload.Filename, ""),
 		UploadDate:   time.Now(),
 		Size:         upload.TotalSize,
 		ContentType:  contentType,

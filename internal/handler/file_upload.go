@@ -39,7 +39,7 @@ func (h *Handler) HandleUpload(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Invalid request form.")
 	}
 
-	if c.FormValue("shorten") != "" {
+	if _, exists := c.Request().Form["shorten"]; exists {
 		if !h.cfg.URLShorteningEnabled {
 			return c.String(http.StatusBadRequest, "URL shortening feature is disabled")
 		}
@@ -105,7 +105,7 @@ type FileInfo struct {
 }
 
 func (h *Handler) extractFileContent(c echo.Context) (FileInfo, error) {
-	if c.FormValue("shorten") != "" {
+	if _, exists := c.Request().Form["shorten"]; exists {
 		return FileInfo{}, fmt.Errorf("URL shortening request - handled separately")
 	}
 
@@ -165,7 +165,7 @@ func (h *Handler) saveFromFormFile(file io.Reader, header *multipart.FileHeader)
 	fileInfo := FileInfo{
 		FilePath:         filePath,
 		StoredFilename:   filename,
-		OriginalFilename: header.Filename,
+		OriginalFilename: filenameSanitizer.ReplaceAllString(header.Filename, ""),
 		Size:             size,
 		ContentType:      contentType,
 	}
@@ -209,6 +209,7 @@ func (h *Handler) downloadFromURL(c echo.Context) (FileInfo, error) {
 	}
 
 	originalName := h.extractFilenameFromURL(url)
+	originalName = filenameSanitizer.ReplaceAllString(originalName, "")
 	fileExt := filepath.Ext(originalName)
 	filename := id
 	if fileExt != "" {

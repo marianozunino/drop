@@ -389,7 +389,9 @@ Valid fields for URL shortening:
   ┌─────────┬────────────┬──────────────────────────────────────────────────┐
   │ field   │ content    │ remarks                                          │
   ╞═════════╪════════════╪══════════════════════════════════════════════════╡
-  │ shorten │ URL        │ The URL to shorten (required)                    │
+  │ shorten │ (ignored)  │ If present, enables URL shortening mode          │
+  ├─────────┼────────────┼──────────────────────────────────────────────────┤
+  │ url     │ URL        │ The URL to shorten (required)                    │
   ├─────────┼────────────┼──────────────────────────────────────────────────┤
   │ secret  │ (ignored)  │ If present, a longer, hard-to-guess URL          │
   │         │            │ will be generated.                               │
@@ -412,22 +414,22 @@ Valid fields for URL shortening:
 templ URLShorteningExamples(config config.Config) {
 	@templ.Raw(`
     Shorten a URL:
-        curl -F'shorten=https://example.com/some/long/url' ` + config.BaseURL + `
+        curl -F'shorten=' -F'url=https://example.com/some/long/url' ` + config.BaseURL + `
 
     Shorten with hard-to-guess URL:
-        curl -F'shorten=https://example.com/some/long/url' -Fsecret= ` + config.BaseURL + `
+        curl -F'shorten=' -F'url=https://example.com/some/long/url' -Fsecret= ` + config.BaseURL + `
 
     Create a one-time short URL (deleted after first access):
-        curl -F'shorten=https://example.com/some/long/url' -Fone_time= ` + config.BaseURL + `
+        curl -F'shorten=' -F'url=https://example.com/some/long/url' -Fone_time= ` + config.BaseURL + `
 
     Shorten with expiration in hours:
-        curl -F'shorten=https://example.com/some/long/url' -Fexpires=24 ` + config.BaseURL + `
+        curl -F'shorten=' -F'url=https://example.com/some/long/url' -Fexpires=24 ` + config.BaseURL + `
 
     Shorten with expiration date:
-        curl -F'shorten=https://example.com/some/long/url' -Fexpires=2023-04-20 ` + config.BaseURL + `
+        curl -F'shorten=' -F'url=https://example.com/some/long/url' -Fexpires=2023-04-20 ` + config.BaseURL + `
 
     Combining options (one-time access with expiration and secret URL):
-        curl -F'shorten=https://example.com/some/long/url' -Fone_time= -Fsecret= -Fexpires=24 ` + config.BaseURL + `
+        curl -F'shorten=' -F'url=https://example.com/some/long/url' -Fone_time= -Fsecret= -Fexpires=24 ` + config.BaseURL + `
 	`)
 }
 

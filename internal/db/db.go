@@ -64,8 +64,13 @@ func (db *DB) StoreMetadata(metadata Storeable) error {
 	}
 	defer stmt.Close()
 
+	idValue := fileMeta.ResourcePath
+	if idValue == "" {
+		idValue = metadata.ID()
+	}
+
 	_, err = stmt.Exec(
-		metadata.ID(),
+		idValue,
 		fileMeta.ResourcePath,
 		fileMeta.Token,
 		fileMeta.OriginalName,
